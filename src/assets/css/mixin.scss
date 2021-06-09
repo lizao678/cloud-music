@@ -25,12 +25,89 @@
 }
 
 // 根据属性选择器来设置背景颜色
-@mixin bg_color($color) {
-  background: $color;
+@mixin bg_color() {
+  background: $background-color-theme;
   [data-theme=theme1] & {
     background: $background-color-theme1;
   }
   [data-theme=theme2] & {
     background: $background-color-theme2;
+  }
+}
+
+@mixin bg_img($url) {
+  [data-theme=theme] & {
+    background: url($url + '_163.png')
+  }
+  [data-theme=theme1] & {
+    background: url($url + '_qq.png')
+  }
+  [data-theme=theme2] & {
+    background: url($url + '_it666.png')
+  }
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+
+  [data-theme=theme][data-dpr='2'] & {
+    background: url($url + '_163@2x.png')
+  }
+  [data-theme=theme][data-dpr='3'] & {
+    background: url($url + '_163@3x.png')
+  }
+  [data-theme=theme1][data-dpr='2'] & {
+    background: url($url + '_qq@2x.png')
+  }
+  [data-theme=theme1][data-dpr='3'] & {
+    background: url($url + '_qq@3x.png')
+  }
+  [data-theme=theme2][data-dpr='2'] & {
+    background: url($url + '_it666@2x.png')
+  }
+  [data-theme=theme2][data-dpr='3'] & {
+    background: url($url + '_it666@3x.png')
+  }
+}
+
+// 根据属性选择器设置sub栏的颜色
+@mixin bg_sub_color() {
+  background: $background-color-sub-theme;
+  [data-theme=theme1] & {
+    background: $background-color-sub-theme1;
+  }
+  [data-theme=theme2] & {
+    background: $background-color-sub-theme2;
+  }
+}
+
+// 根据属性选择器设置sub栏中字体的颜色
+@mixin font_color() {
+  color: $font-color-theme;
+  [data-theme=theme1] & {
+    color: $font-color-theme1;
+  }
+  [data-theme=theme2] & {
+    color: $font-color-theme2;
+  }
+}
+
+// 根据属性选择器设置sub栏中字体的颜色（激活）
+@mixin font_active_color() {
+  color: $font-active-color-theme;
+  [data-theme=theme1] & {
+    color: $font-active-color-theme1;
+  }
+  [data-theme=theme2] & {
+    color: $font-active-color-theme2;
+  }
+}
+
+// 根据属性选择器设置sub栏中字体下的边框的颜色（激活）
+@mixin border_color() {
+  border-color: $border-color-theme;
+  [data-theme=theme1] & {
+    border-color: $border-color-theme1;
+  }
+  [data-theme=theme2] & {
+    border-color: $border-color-theme2;
   }
 }

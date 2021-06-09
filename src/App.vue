@@ -1,25 +1,19 @@
 <template>
   <div id="app">
     <Header></Header>
-    <div class="theme">
-      <button @click="myFn('theme')"></button>
-      <button @click="myFn('theme1')"></button>
-      <button @click="myFn('theme2')"></button>
-    </div>
+    <Tabbar></Tabbar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from './components/Header'
+import Tabbar from './components/Tabbar'
 export default {
   name: 'App',
   components: {
-    Header
-  },
-  methods: {
-    myFn (data) {
-      document.documentElement.setAttribute('data-theme', data)
-    }
+    Header,
+    Tabbar
   }
 }
 </script>

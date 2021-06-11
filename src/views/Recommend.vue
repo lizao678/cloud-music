@@ -1,20 +1,37 @@
 <template>
   <div class="recommend">
-      <Banner :banners="banners"></Banner>
+    <ScrollView>
+      <div>
+        <Banner :banners="banners"></Banner>
+      <Personalized :personalized="personalized" :title="'推荐歌单'"></Personalized>
+      <Personalized :personalized="albums" :title="'最新专辑'"></Personalized>
+      <SongList :songs="songs"></SongList>
+      </div>
+    </ScrollView>
   </div>
 </template>
 
 <script>
-import { getBanner } from '../api/index'
+import { getBanner, getPersonalized, getNewAlbum, getNewSong } from '../api/index'
 import Banner from '../components/Banner.vue'
+import Personalized from '../components/Personalized.vue'
+import SongList from '../components/Songlist.vue'
+import ScrollView from '../components/ScrollView.vue'
+
 export default {
   name: 'Recommend',
   components: {
-    Banner
+    Banner,
+    Personalized,
+    SongList,
+    ScrollView
   },
   data () {
     return {
-      banners: []
+      banners: [],
+      personalized: [],
+      albums: [],
+      songs: []
     }
   },
   created () {
@@ -26,10 +43,40 @@ export default {
       .catch(err => {
         console.log(err)
       })
+    getPersonalized()
+      .then(data => {
+        // console.log(data)
+        this.personalized = data.result
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    getNewAlbum()
+      .then(data => {
+        // console.log(data.albums.splice(0, 6))
+        this.albums = data.albums.splice(0, 6)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    getNewSong()
+      .then(data => {
+        // console.log(data.result)
+        this.songs = data.result
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.recommend{
+  position: fixed;
+  top: 184px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 </style>

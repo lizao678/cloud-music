@@ -37,6 +37,8 @@ export default {
   @include bg_color();
   display: flex;
   justify-content: space-between;
+  position: relative;
+  z-index: 999;
   .header-left,
   .header-right {
     width: 84px;
@@ -53,7 +55,8 @@ export default {
   .header-title {
     text-align: center;
     line-height: 100px;
-    color: $font-color-theme2;
+    font-weight: 700;
+    color: #fff;
   }
 }
 </style>

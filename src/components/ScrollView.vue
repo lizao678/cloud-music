@@ -12,7 +12,8 @@ export default {
   mounted () {
     this.iscroll = new IScroll(this.$refs.wrapper, {
       mouseWheel: true,
-      scrollbars: true,
+      scrollbars: false,
+      probeType: 3,
       // 解决拖拽卡顿问题
       scrollX: false,
       scrollY: true,
@@ -49,6 +50,14 @@ export default {
     参数一：告诉观察者需要观察什么内容
     */
     observer.observe(this.$refs.wrapper, config)
+  },
+  methods: {
+    // 提供一个监听滚动距离的方法给外界使用
+    scrolling (fn) {
+      this.iscroll.on('scroll', function () {
+        fn(this.y)
+      })
+    }
   }
 }
 </script>

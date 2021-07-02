@@ -1,5 +1,6 @@
 <template>
-  <div class="list-player" v-show="isShow">
+<transition @enter="enter" @leave="leave">
+     <div class="list-player" v-show="isShow">
      <div class="player-warpper">
           <div class="player-top">
               <div class="top-left">
@@ -61,10 +62,15 @@
       </div>
      </div>
   </div>
+</transition>
+
 </template>
 
 <script>
 import ScrollView from '../ScrollView'
+import Velocity from 'velocity-animate'
+import 'velocity-animate/velocity.ui'
+
 export default {
   name: 'ListPlayer',
   components: {
@@ -76,6 +82,16 @@ export default {
     },
     hidden () {
       this.isShow = false
+    },
+    enter (el, done) {
+      Velocity(el, 'transition.bounceUpIn', { duration: 500 }, () => {
+        done()
+      })
+    },
+    leave (el, done) {
+      Velocity(el, 'transition.bounceDownOut', { duration: 500 }, () => {
+        done()
+      })
     }
   },
   data () {

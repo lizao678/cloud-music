@@ -1,5 +1,6 @@
 <template>
-  <div class="mini-player" v-show="this.isShowMiniPlayer">
+<transition @enter="enter" @leave="leave">
+   <div class="mini-player" v-show="this.isShowMiniPlayer">
       <div class="player-warpper">
           <div class="player-left" @click="showNormal">
               <img src="https://p1.music.126.net/8y8KJC1eCSO_vUKf2MyZwA==/109951165796899183.jpg" alt="" >
@@ -14,10 +15,15 @@
           </div>
       </div>
   </div>
+</transition>
+
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Velocity from 'velocity-animate'
+import 'velocity-animate/velocity.ui'
+
 export default {
   name: 'MiniPlayer',
   methods: {
@@ -31,6 +37,16 @@ export default {
     },
     showList () {
       this.$emit('showList')
+    },
+    enter (el, done) {
+      Velocity(el, 'transition.bounceUpIn', { duration: 500 }, () => {
+        done()
+      })
+    },
+    leave (el, done) {
+      Velocity(el, 'transition.bounceDownOut', { duration: 500 }, () => {
+        done()
+      })
     }
   },
   computed: {

@@ -1,5 +1,6 @@
 <template>
-  <div class="normal-player" v-show="this.isFullScreen">
+  <transition  v-on:enter="enter"   @leave="leave">
+    <div class="normal-player" v-show="this.isFullScreen">
     <div class="player-waepper">
       <PlayHeader></PlayHeader>
       <PlayerMiddle></PlayerMiddle>
@@ -9,6 +10,7 @@
         <img src="https://dfzximg01.dftoutiao.com/news/20210614/20210614134446_5350398987762e5ff84917e9f52af0c9_4.png" alt="">
     </div>
   </div>
+  </transition>
 </template>
 
 <script>
@@ -16,6 +18,9 @@ import PlayHeader from './PlayHeader'
 import PlayerMiddle from './PlayerMiddle'
 import PlayerBottom from './PlayerBottom'
 import { mapGetters } from 'vuex'
+import Velocity from 'velocity-animate'
+import 'velocity-animate/velocity.ui'
+
 export default {
   name: 'NormalPlayer',
   components: {
@@ -27,6 +32,18 @@ export default {
     ...mapGetters([
       'isFullScreen'
     ])
+  },
+  methods: {
+    enter (el, done) {
+      Velocity(el, 'transition.shrinkIn', { duration: 500 }, () => {
+        done()
+      })
+    },
+    leave (el, done) {
+      Velocity(el, 'transition.shrinkOut', { duration: 500 }, () => {
+        done()
+      })
+    }
   }
 }
 </script>
